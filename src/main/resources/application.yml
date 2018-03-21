@@ -1,0 +1,23 @@
+mongo:
+  db:
+    sources:
+      host: localhost
+      port: 27017
+      database: gamification-2018-02-23
+    app:
+      host: localhost
+      port: 27017
+      database: smartWeekScheduler
+
+game-engine:
+  url: http://localhost:18000/gamification/gengine/execute
+  gameId: 5ab12eb9169c464e23a2fcd7
+  climbPlayer: Climb
+  playAndGoPlayer: PlayAndGo
+  action: ClassWalkTrip
+  username: user
+  password: password
+
+cron:
+  climb: "0 */1 * * * ?"
+  playAndGo: "0 */1 * * * ?"
