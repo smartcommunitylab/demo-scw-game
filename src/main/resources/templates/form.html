@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Spring Boot Thymeleaf Hello World Example</title>
+<title>Smart City Week - Stand FBK</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <link rel="stylesheet" type="text/css"
@@ -23,7 +23,7 @@
 <body>
 
 	<div class="container">
-		<div class="row">
+		<div class="row" style="margin-top: 50px;">
 			<form class="form-horizontal" action="#" th:action="@{/submission}"
 				th:object="${trip}" method="post">
 				<div class="form-group">
@@ -37,20 +37,20 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-2 control-label">Numero partecipanti</label>
+					<label class="col-md-2 control-label">Participants number</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" th:field="*{participants}"></input>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-2 control-label">Numero Km</label>
+					<label class="col-md-2 control-label">Distance in Km</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" th:field="*{distance}" id="distance"></input>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default">Invia</button>
+						<button type="submit" class="btn btn-default">Send</button>
 					</div>
 				</div>
 			</form>
@@ -60,7 +60,6 @@
 				<label>Came from</label> <input type="text" class="form-control"
 					id="from"></input>
 			</div>
-			<button id="calculate" class="btn btn-default">Calculate</button>
 		</div>
 		<div class="row">
 			<div id="map"></div>
@@ -92,10 +91,6 @@
 				    return false;
 				  }
 				});
-			
-			$('#calculate').click(function() {
-				 travel();
-			});
 		});	
 		</script>
 
