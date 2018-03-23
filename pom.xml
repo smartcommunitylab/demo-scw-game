@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.smartcommunitylab.gamification</groupId>
 	<artifactId>sco.tnsmartweek</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -126,5 +126,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>demo-scw-game</finalName>
 	</build>
 </project>
