@@ -42,7 +42,7 @@ public class FormController {
                 trip.getParticipants(), trip.getDistance());
         engineClient.formAction(trip.getSelectedTeam(), trip.getParticipants(),
                 DataManager.convertToMeters(trip.getDistance()));
-        return "form";
+        return "forward:/";
     }
 
     public String getGoogleKey() {
