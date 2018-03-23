@@ -3,4 +3,4 @@
 .classpath
 .settings/
 
-*.log.*
+*.log*
