@@ -28,4 +28,6 @@ cron:
   
   
 form:
+  # teams is an array of team names
+  teams:
   googleKey: GOOGLE_MAP_KEY
