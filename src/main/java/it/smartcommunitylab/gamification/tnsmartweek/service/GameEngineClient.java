@@ -38,17 +38,21 @@ public class GameEngineClient {
     private ObjectMapper mapper = new ObjectMapper();
 
     public void gameClimbAction(double score) {
-        sendAction(climbPlayer, score);
+        sendAction(climbPlayer, score, 1d);
     }
 
     public void gamePlayAndGoAction(double score) {
-        sendAction(playAndGoPlayer, score);
+        sendAction(playAndGoPlayer, score, 1d);
     }
 
-    private void sendAction(String player, double score) {
+    public void formAction(String player, int participants, double score) {
+        sendAction(player, score, Integer.valueOf(participants).doubleValue());
+    }
+
+    private void sendAction(String player, double score, double participants) {
         OkHttpClient client = new OkHttpClient();
         String basicHeader = Credentials.basic(username, password);
-        String payload = payload(player, score);
+        String payload = payload(player, score, participants);
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), payload);
         Request request = new Request.Builder().url(url).addHeader("Authorization", basicHeader)
                 .post(body).build();
@@ -77,7 +81,7 @@ public class GameEngineClient {
     }
 
 
-    private String payload(String player, double score) {
+    private String payload(String player, double score, double partipants) {
         Map<String, Object> payload = new HashMap<>();
         payload.put("gameId", gameId);
         payload.put("playerId", player);
@@ -86,7 +90,7 @@ public class GameEngineClient {
         inputData.put("class-distance", score);
         inputData.put("meteo", "sun");
         inputData.put("school-date", new Date().getTime());
-        inputData.put("participants", 1d);
+        inputData.put("participants", partipants);
         payload.put("data", inputData);
         mapper = new ObjectMapper();
         try {
