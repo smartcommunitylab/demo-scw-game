@@ -30,6 +30,7 @@
 					<label class="col-md-2 control-label">Team</label>
 					<div class="col-md-10">
 						<select th:field="*{selectedTeam}">
+						    <option th:value="''" th:text="'Select a team'"></option>
 							<option th:each="team: ${teams}" th:value="${team}"
 								th:text="${team}"></option>
 						</select>
