@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot Thymeleaf Hello World Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/main.css}"
+	href="../../css/main.css" />
+
+<style>
+#map {
+	width: 100%;
+	height: 400px;
+	background-color: grey;
+}
+</style>
+
+
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" action="#" th:action="@{/submission}"
+				th:object="${trip}" method="post">
+				<div class="form-group">
+					<label class="col-md-2 control-label">Team</label>
+					<div class="col-md-10">
+						<select th:field="*{selectedTeam}">
+							<option th:each="team: ${teams}" th:value="${team}"
+								th:text="${team}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Numero partecipanti</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" th:field="*{participants}"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Numero Km</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" th:field="*{distance}" id="distance"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-default">Invia</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="form">
+			<div class="form-group">
+				<label>Came from</label> <input type="text" class="form-control"
+					id="from"></input>
+			</div>
+			<button id="calculate" class="btn btn-default">Calculate</button>
+		</div>
+		<div class="row">
+			<div id="map"></div>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+	<script type="text/javascript">
+		var coords = {lat: 46.0676, lng: 11.121798};
+		var map;
+		var fromMarker;
+		var destinationMarker;
+		var directionsService;
+		var directionDisplay;
+	</script>
+
+	<script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+
+	<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript">
+		$(() => {
+			$('#from').keypress(function(e) {
+				  if (e.which == 13) {
+				    travel();
+				    return false;
+				  }
+				});
+			
+			$('#calculate').click(function() {
+				 travel();
+			});
+		});	
+		</script>
+
+	<script type="text/javascript">
+	
+	  const travel = () => {
+		  const coordsStand = `${destinationMarker.position.lat()},${destinationMarker.position.lng()}`;
+		  const coordsStart = $('#from').val();
+		  
+		  directionsService.route({
+              origin: coordsStart,
+              destination: coordsStand,
+              travelMode: 'DRIVING'
+      	  }, function(response, status) {
+          if (status === 'OK') {
+              // Pass data to the map
+              directionDisplay.setDirections(response);
+
+              const distanceInMeter = response.routes.length > 0 ? response.routes[0].legs.map(leg => leg.distance.value).reduce((t,x) => t+x) : 0;
+              $('#distance').val(distanceInMeter / 1000);
+          } else {
+              console.log('Directions request failed due to ' + status);
+          }
+      });
+		  
+	  };
+	  
+	  function initMap() {
+    	
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: coords
+        });
+        
+        directionsService = new google.maps.DirectionsService;
+		directionDisplay = new google.maps.DirectionsRenderer;
+        
+		directionDisplay.setMap(map);
+
+        
+        destinationMarker = new google.maps.Marker({
+       	    position: coords,
+       	    map: map,
+       	    title: 'FBK STAND'
+       	});
+        const destinationPopup = '<div>FBK STAND</div>';
+        const infowindow = new google.maps.InfoWindow({
+            content: destinationPopup
+          });
+
+        destinationMarker.addListener('click', function() {
+          infowindow.open(map, destinationMarker);
+        });
+
+        new google.maps.event.trigger(destinationMarker, 'click' );
+      }
+    </script>
+
+	<script
+		th:src="@{https://maps.googleapis.com/maps/api/js(callback='initMap',key=${googleKey})}">
+    </script>
+
+
+
+</body>
+</html>

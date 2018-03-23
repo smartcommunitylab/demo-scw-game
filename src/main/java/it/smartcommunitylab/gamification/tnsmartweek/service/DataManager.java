@@ -1,10 +1,10 @@
 package it.smartcommunitylab.gamification.tnsmartweek.service;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -14,9 +14,11 @@ import org.springframework.stereotype.Component;
 import com.mongodb.WriteResult;
 
 @Component
+@ConfigurationProperties(prefix = "games")
 public class DataManager {
 
-
+    private List<String> climb;
+    private String playAndGo;
 
     @Autowired
     @Qualifier("sourcesMongoTemplate")
@@ -26,11 +28,8 @@ public class DataManager {
     @Qualifier("appMongoTemplate")
     private MongoTemplate appMongoTemplate;
 
-
-
     public double getClimbScore() {
-        Criteria crit = Criteria.where("gameId")
-                .in(Arrays.asList("58a55bece4b0d3fae8c96ff7", "5a97ea6f839cd81f52aae3a5"));
+        Criteria crit = Criteria.where("gameId").in(climb);
         Query q = new Query(crit);
         List<ClimbViewTotalDistance> states =
                 sourceMongoTemplate.find(q, ClimbViewTotalDistance.class);
@@ -48,7 +47,7 @@ public class DataManager {
 
 
     public double getPlayAndGoScore() {
-        Criteria crit = Criteria.where("gameId").is("59a91478e4b0c9db6800afaf");
+        Criteria crit = Criteria.where("gameId").is(playAndGo);
         Query q = new Query(crit);
         List<PlayAndGoViewDistance> states =
                 sourceMongoTemplate.find(q, PlayAndGoViewDistance.class);
@@ -97,5 +96,24 @@ public class DataManager {
 
     public static enum SnapshotSource {
         CLIMB, PLAY_AND_GO
+    }
+
+    public List<String> getClimb() {
+        return climb;
+    }
+
+
+    public void setClimb(List<String> climb) {
+        this.climb = climb;
+    }
+
+
+    public String getPlayAndGo() {
+        return playAndGo;
+    }
+
+
+    public void setPlayAndGo(String playAndGo) {
+        this.playAndGo = playAndGo;
     }
 }

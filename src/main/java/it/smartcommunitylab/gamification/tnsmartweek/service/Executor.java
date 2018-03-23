@@ -68,7 +68,7 @@ public class Executor {
     }
 
 
-    @Scheduled(cron = "${cron.playAndGo}")
+    // @Scheduled(cron = "${cron.playAndGo}")
     public double playAndGoSnapshot() {
         double lastValue = dataManager.getLastSnapshotValue(PLAY_AND_GO);
         double actualValue = DataManager.convertToMeters(dataManager.getPlayAndGoScore());
