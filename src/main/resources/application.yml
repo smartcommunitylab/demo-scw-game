@@ -16,8 +16,8 @@ games:
 game-engine:
   url: http://localhost:18000/gamification/gengine/execute
   gameId: 5ab12eb9169c464e23a2fcd7
-  climbPlayer: Climb
-  playAndGoPlayer: PlayAndGo
+  climbPlayer: "Kids Go Green"
+  playAndGoPlayer: "Viaggia Play&Go"
   action: ClassWalkTrip
   username: user
   password: password
