@@ -48,21 +48,26 @@ public class Executor {
         if (lastValue != 0) {
             delta = actualValue - lastValue;
             logger.info("Climb Delta {}", delta);
-            if (delta == 0) {
+            if (delta < 0) {
+                logger.warn("ATTENTION negative delta, no action to game-engine will be sent");
+            } else if (delta == 0) {
                 logger.info("Delta is 0, no action to game-engine will be sent");
             } else {
                 engineClient.gameClimbAction(delta);
                 logger.info("Sent action to gamificationEngine");
-
             }
         } else {
             logger.warn("Seems that climb data is not correctly init");
         }
-        double result = dataManager.storeSnapshot(CLIMB, actualValue);
-        if (result > 0) {
-            logger.info("store actual value for climb {}", actualValue);
+        if (delta > 0) {
+            double result = dataManager.storeSnapshot(CLIMB, actualValue);
+            if (result > 0) {
+                logger.info("store actual value for climb {}", actualValue);
+            } else {
+                logger.error("Problem storing climb actual value");
+            }
         } else {
-            logger.error("Problem storing climb actual value");
+            logger.info("Delta is 0, value is not change, nothing to store");
         }
         return delta;
     }
@@ -76,7 +81,11 @@ public class Executor {
         if (lastValue != 0) {
             delta = actualValue - lastValue;
             logger.info("PlayAndGo Delta {}", delta);
-            if (delta == 0) {
+            if (delta < 0) {
+                logger.warn("ATTENTION negative delta, no action to game-engine will be sent");
+            } else if (delta < 0) {
+                logger.info("Delta is 0, no action to game-engine will be sent");
+            } else if (delta == 0) {
                 logger.info("Delta is 0, no action to game-engine will be sent");
             } else {
                 engineClient.gamePlayAndGoAction(delta);
@@ -85,11 +94,15 @@ public class Executor {
         } else {
             logger.warn("Seems that playAndGo data is not correctly init");
         }
-        double result = dataManager.storeSnapshot(PLAY_AND_GO, actualValue);
-        if (result > 0) {
-            logger.info("store actual value for playAndGo {}", actualValue);
+        if (delta > 0) {
+            double result = dataManager.storeSnapshot(PLAY_AND_GO, actualValue);
+            if (result > 0) {
+                logger.info("store actual value for playAndGo {}", actualValue);
+            } else {
+                logger.error("Problem storing playAndGo actual value");
+            }
         } else {
-            logger.error("Problem storing playAndGo actual value");
+            logger.info("Delta is 0, value is not change, nothing to store");
         }
         return delta;
     }
