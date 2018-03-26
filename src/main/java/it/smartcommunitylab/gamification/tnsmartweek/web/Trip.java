@@ -1,8 +1,18 @@
 package it.smartcommunitylab.gamification.tnsmartweek.web;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 public class Trip {
+
+    @DecimalMin("0.1")
     private double distance;
+
+    @Min(1)
     private int participants;
+
+    @Size(min = 1, message = "A team is required")
     private String selectedTeam;
 
 
