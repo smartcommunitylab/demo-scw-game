@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.smartcommunitylab.gamification.tnsmartweek.service.DataManager;
 import it.smartcommunitylab.gamification.tnsmartweek.service.GameEngineClient;
@@ -41,7 +42,8 @@ public class FormController {
     }
 
     @PostMapping("/submission")
-    public String process(@Valid @ModelAttribute Trip trip, BindingResult errors, Model model) {
+    public String process(@Valid @ModelAttribute Trip trip, BindingResult errors, Model model,
+            RedirectAttributes redirectAttrs) {
         if (!errors.hasErrors()) {
             logger.info("trip for team {}: participants: {}, distance: {}", trip.getSelectedTeam(),
                     trip.getParticipants(), trip.getDistance());
@@ -53,8 +55,8 @@ public class FormController {
             model.addAttribute("googleKey", googleKey);
             return "form";
         }
-        model.addAttribute("submission", true);
-        return "forward:/";
+        redirectAttrs.addFlashAttribute("submission", true);
+        return "redirect:/";
     }
 
     public String getGoogleKey() {
