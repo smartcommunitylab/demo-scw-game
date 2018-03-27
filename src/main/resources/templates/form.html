@@ -61,8 +61,11 @@
 		</div>
 		<div class="form">
 			<div class="form-group">
-				<label>Came from</label> <input type="text" class="form-control"
+				<label>Origin from</label> <input type="text" class="form-control"
 					id="from"></input>
+			</div>
+			<div class="form-group">
+				<label>Destination:</label> <p>Stand FBK: Piazza Duomo</p>
 			</div>
 		</div>
 		<div class="row">
@@ -76,7 +79,6 @@
 		var coords = {lat: 46.0676, lng: 11.121798};
 		var map;
 		var fromMarker;
-		var destinationMarker;
 		var directionsService;
 		var directionDisplay;
 	</script>
@@ -101,7 +103,7 @@
 	<script type="text/javascript">
 	
 	  const travel = () => {
-		  const coordsStand = `${destinationMarker.position.lat()},${destinationMarker.position.lng()}`;
+		  const coordsStand = {lat: 46.0676, lng: 11.121798};
 		  const coordsStart = $('#from').val();
 		  
 		  directionsService.route({
@@ -133,23 +135,6 @@
 		directionDisplay = new google.maps.DirectionsRenderer;
         
 		directionDisplay.setMap(map);
-
-        
-        destinationMarker = new google.maps.Marker({
-       	    position: coords,
-       	    map: map,
-       	    title: 'FBK STAND'
-       	});
-        const destinationPopup = '<div>FBK STAND</div>';
-        const infowindow = new google.maps.InfoWindow({
-            content: destinationPopup
-          });
-
-        destinationMarker.addListener('click', function() {
-          infowindow.open(map, destinationMarker);
-        });
-
-        new google.maps.event.trigger(destinationMarker, 'click' );
       }
     </script>
 
