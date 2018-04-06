@@ -24,14 +24,14 @@
 
 	<div class="container">
 		<div class="row" style="margin-top: 50px;">
-		<div class="alert alert-success" role="alert" th:if="${submission} == true">Data sent to the game!</div>
+		<div class="alert alert-success" role="alert" th:if="${submission} == true">Viaggio spedito al gioco!</div>
 			<form class="form-horizontal" action="#" th:action="@{/submission}"
 				th:object="${trip}" method="post">
 				<div class="form-group">
-					<label class="col-md-2 control-label">Team</label>
+					<label class="col-md-2 control-label">Tipo sorgente</label>
 					<div class="col-md-10">
-						<select th:field="*{selectedTeam}">
-						    <option th:value="''" th:text="'Select a team'"></option>
+						<select th:field="*{selectedTeam}" class="form-control">
+						    <option th:value="''" th:text="'Scegli il tipo di sorgente'"></option>
 							<option th:each="team: ${teams}" th:value="${team}"
 								th:text="${team}"></option>
 						</select>
@@ -39,14 +39,14 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-2 control-label">Participants number</label>
+					<label class="col-md-2 control-label">Numero di partecipanti</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" th:field="*{participants}"></input>
 						<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('participants')}" th:errors="*{participants}"></div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-2 control-label">Distance in Km</label>
+					<label class="col-md-2 control-label">Distanza in Km</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" th:field="*{distance}" id="distance"></input>
 						<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('distance')}" th:errors="*{distance}"></div>
@@ -54,18 +54,18 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default">Send</button>
+						<button type="submit" class="btn btn-default">Invia</button>
 					</div>
 				</div>
 			</form>
 		</div>
 		<div class="form">
 			<div class="form-group">
-				<label>Origin from</label> <input type="text" class="form-control"
+				<label>Partenza</label> <input type="text" class="form-control"
 					id="from"></input>
 			</div>
 			<div class="form-group">
-				<label>Destination:</label> <p>Stand FBK: Piazza Duomo</p>
+				<label>Destinazione:</label> <p>Stand FBK: Piazza Duomo</p>
 			</div>
 		</div>
 		<div class="row">

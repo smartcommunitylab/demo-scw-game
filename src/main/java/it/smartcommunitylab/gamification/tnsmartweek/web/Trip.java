@@ -6,13 +6,13 @@ import javax.validation.constraints.Size;
 
 public class Trip {
 
-    @DecimalMin("0.1")
+    @DecimalMin(value = "0.1", message = "Inserisci una distanza")
     private double distance;
 
-    @Min(1)
+    @Min(value = 1, message = "Inserisci almeno un partecipante")
     private int participants;
 
-    @Size(min = 1, message = "A team is required")
+    @Size(min = 1, message = "Seleziona una sorgente")
     private String selectedTeam;
 
 
