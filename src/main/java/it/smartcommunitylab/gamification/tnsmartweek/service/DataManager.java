@@ -29,7 +29,7 @@ public class DataManager {
     private MongoTemplate appMongoTemplate;
 
     public double getClimbScore() {
-        Criteria crit = Criteria.where("gameId").in(climb);
+        Criteria crit = Criteria.where("gameId").in(climb).and("playerId").regex("Scuola*");
         Query q = new Query(crit);
         List<ClimbViewTotalDistance> states =
                 sourceMongoTemplate.find(q, ClimbViewTotalDistance.class);
