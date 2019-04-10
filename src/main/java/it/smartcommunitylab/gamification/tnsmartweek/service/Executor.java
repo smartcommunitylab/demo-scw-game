@@ -3,8 +3,6 @@ package it.smartcommunitylab.gamification.tnsmartweek.service;
 import static it.smartcommunitylab.gamification.tnsmartweek.service.DataManager.SnapshotSource.CLIMB;
 import static it.smartcommunitylab.gamification.tnsmartweek.service.DataManager.SnapshotSource.PLAY_AND_GO;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class Executor {
 
 
 
-    @PostConstruct
+    // @PostConstruct -> NOT USED FOR EDUCA
     public void takeBaseData() {
         if (dataManager.getLastSnapshotValue(CLIMB) == 0) {
             double distance = dataManager.storeSnapshot(CLIMB, dataManager.getClimbScore());
