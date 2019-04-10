@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,7 +39,7 @@ public class Executor {
 
     }
 
-    @Scheduled(cron = "${cron.climb}")
+    // @Scheduled(cron = "${cron.climb}") -> NOT USED FOR EDUCA
     public double climbSnapshot() {
         double lastValue = dataManager.getLastSnapshotValue(CLIMB);
         double actualValue = dataManager.getClimbScore();
@@ -73,7 +72,7 @@ public class Executor {
     }
 
 
-    @Scheduled(cron = "${cron.playAndGo}")
+    // @Scheduled(cron = "${cron.playAndGo}") -> NOT USED FOR EDUCA
     public double playAndGoSnapshot() {
         double lastValue = dataManager.getLastSnapshotValue(PLAY_AND_GO);
         double actualValue = DataManager.convertToMeters(dataManager.getPlayAndGoScore());
