@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Smart City Week - Stand FBK</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<!-- link rel="stylesheet" th:href="@{/css/main.css}"
+	href="../../css/main.css" /-->
+
+<style>
+.header-div {
+	padding: 1em;
+}
+
+.footer-div {
+	margin-top: 1em;
+	font-size: 20px;
+}
+
+#left-panel, #right-panel {
+	height: 100%;
+	text-align: center;
+}
+
+#right-panel p, #left-panel p {
+	font-size: 20px;
+	test-align: center;
+}
+
+.walk-button, .bike-button, .bus-button, .train-button {
+	display: block;
+	width: 100%;
+	min-height: 200px;
+	cursor: pointer;
+	margin: auto;
+	text-align: center;
+	color: white;
+	border-radius: 1em;
+}
+
+.walk-button {
+	background-color: #A8E206;
+}
+
+.bike-button {
+	background-color: #01C86E;
+}
+
+.bus-button {
+	background-color: #FFE600;
+}
+
+.train-button {
+	background-color: #FF7F00;
+}
+
+.icon {
+	height: 150px;
+}
+
+img .icon {
+	height: 100%;
+}
+
+p.label {
+	margin-top: 10px;
+	font-size: 30px;
+}
+
+#logo-kids-extended {
+	max-width: 400px;
+}
+
+#logo-kids {
+	max-width: 100px;
+}
+
+#logo-fbk {
+	max-width: 100px;
+}
+
+#logo-kaleido {
+	max-width: 100px;
+}
+
+#logo-cosa-giusta {
+	max-width: 80%;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+	<div class="row header-div">
+		<div class="col-md-12">
+			<span class="pull-left"><img id="logo-kids-extended"
+				src="img/logo-kidsgogreen-extended.png" /></span> 
+			<span class="pull-right">
+				<span style="margin-right: 10px"><img id="logo-fbk"
+					src="img/FBK_BASE.png" /></span> 
+				<span><img id="logo-kaleido"
+					src="img/Kaleidoscopio.png" /></span>
+			</span>
+		</div>
+	</div>
+</header>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- LEFT PANEL -->
+			<div id="left-panel" class="col-md-3">
+				<div style="margin-top: 30%"></div>
+				<p>SEI ARRIVATO IN FIERA CON UN MEZZO SOSTENIBILE ?</p>
+				<img id="logo-cosa-giusta" src="img/logo-fa-la-cosa-giusta.png" />
+
+			</div>
+
+			<!-- BUTTON GROUP -->
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-6">
+						<form id="walk-form" class="form-horizontal" action="#"
+							th:action="@{/collect-modes}" th:object="${trip}" method="post">
+							<input type="hidden" id="mode" name="mode" th:value="${modeWalk}"></input>
+							<div class="walk-button">
+								<div class="icon">
+									<img src="img/icon__walk.svg" class="icon" />
+								</div>
+								<p class="label">Piedi</p>
+							</div>
+
+						</form>
+					</div>
+					<div class="col-md-6">
+						<form id="bike-form" class="form-horizontal" action="#"
+							th:action="@{/collect-modes}" th:object="${trip}" method="post">
+							<input type="hidden" id="mode" name="mode" th:value="${modeBike}"></input>
+							<div class="bike-button">
+								<div class="icon">
+									<img src="img/icon__bike.svg" class="icon" />
+								</div>
+								<p class="label">Bici</p>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 1em;">
+					<div class="col-md-6">
+						<form id="bus-form" class="form-horizontal" action="#"
+							th:action="@{/collect-modes}" th:object="${trip}" method="post">
+							<input type="hidden" id="mode" name="mode" th:value="${modeBus}"></input>
+							<div class="bus-button">
+								<div class="icon">
+									<img src="img/icon__bus.svg" class="icon" />
+								</div>
+								<p class="label">Bus</p>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-6">
+						<form id="train-form" class="form-horizontal" action="#"
+							th:action="@{/collect-modes}" th:object="${trip}" method="post">
+							<input type="hidden" id="mode" name="mode"
+								th:value="${modeTrain}"></input>
+							<div class="train-button">
+								<div class="icon">
+									<img src="img/icon__train.svg" class="icon" />
+								</div>
+								<p class="label">Treno</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- RIGHT PANEL -->
+			<div id="right-panel" class="col-md-3">
+				<div style="margin-top: 30%"></div>
+				<img id="logo-kids" src="img/icon-kidsgogreen.png" />
+				<p style="margin-top: 2px;">CONTRIBUISCI AL VIAGGIO VIRTUALE «KIDS GO GREEN» !</p>
+
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="row footer-div">
+			<div class="col-md-12">
+				<div class="text-center">
+					<a href="#" target="_blank">Un viaggio alla scoperta di 10
+						città europee che hanno scommesso sulla mobilità sostenibile</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+
+	<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+		$('.walk-button').click(function() {
+			$('#walk-form').submit();
+		});
+		$('.bike-button').click(function() {
+			$('#bike-form').submit();
+		});
+		$('.bus-button').click(function() {
+			$('#bus-form').submit();
+		});
+		$('.train-button').click(function() {
+			$('#train-form').submit();
+		});
+	</script>
+
+</body>
+
+</html>

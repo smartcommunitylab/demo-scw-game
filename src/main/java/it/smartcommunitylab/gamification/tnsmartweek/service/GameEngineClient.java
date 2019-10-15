@@ -49,6 +49,50 @@ public class GameEngineClient {
         sendAction(player, score, Integer.valueOf(participants).doubleValue());
     }
 
+    public void modeFormAction(String player, String mode) {
+        sendModeAction(player, mode);
+    }
+
+    private String modePayload(String player, String mode) {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("gameId", gameId);
+        payload.put("playerId", player);
+        payload.put("actionId", action);
+        Map<String, Object> inputData = new HashMap<>();
+        inputData.put("mode", mode);
+        inputData.put("meteo", "sun");
+        payload.put("data", inputData);
+        mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(payload);
+        } catch (JsonProcessingException e) {
+            logger.error("Exception creating game-engine payload");
+            return "";
+        }
+    }
+
+    private void sendModeAction(String player, String mode) {
+        OkHttpClient client = new OkHttpClient();
+        String basicHeader = Credentials.basic(username, password);
+        String payload = modePayload(player, mode);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), payload);
+        Request request = new Request.Builder().url(url).addHeader("Authorization", basicHeader)
+                .post(body).build();
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                logger.info("body request: {}", payload);
+                logger.info("game-engine request SUCCESS");
+
+            } else {
+                logger.warn("game-engine request FAILED");
+            }
+        } catch (IOException e) {
+            logger.error("Exception sending request to game-engine", e);
+        }
+    }
+
     private void sendAction(String player, double score, double participants) {
         OkHttpClient client = new OkHttpClient();
         String basicHeader = Credentials.basic(username, password);

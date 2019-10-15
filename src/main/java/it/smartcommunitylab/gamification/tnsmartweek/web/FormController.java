@@ -26,6 +26,8 @@ public class FormController {
 
     private static final Logger logger = LogManager.getLogger(FormController.class);
 
+    private String standPlayer;
+
     private String googleKey;
 
     private List<String> teams;
@@ -39,6 +41,25 @@ public class FormController {
         model.put("teams", teams);
         model.put("googleKey", googleKey);
         return "form";
+    }
+
+    @RequestMapping("/falacosagiusta")
+    public String give(Map<String, Object> model) {
+        model.put("trip", new ModeTrip());
+        model.put("modeWalk", "zeroImpact_solo");
+        model.put("modeBike", "zeroImpact_wAdult");
+        model.put("modeBus", "bus");
+        model.put("modeTrain", "pandr");
+        return "falacosagiusta";
+    }
+
+    @PostMapping("/collect-modes")
+    public String prova(@ModelAttribute ModeTrip trip, BindingResult errors, Model model,
+            RedirectAttributes redirectAttrs) {
+        logger.info(" Trip with mode " + trip.getMode());
+        engineClient.modeFormAction(standPlayer, trip.getMode());
+        redirectAttrs.addFlashAttribute("submission", true);
+        return "redirect:/falacosagiusta";
     }
 
     @PostMapping("/submission")
@@ -73,6 +94,14 @@ public class FormController {
 
     public void setTeams(List<String> teams) {
         this.teams = teams;
+    }
+
+    public String getStandPlayer() {
+        return standPlayer;
+    }
+
+    public void setStandPlayer(String standPlayer) {
+        this.standPlayer = standPlayer;
     }
 
 }
