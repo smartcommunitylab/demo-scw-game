@@ -61,6 +61,7 @@ public class GameEngineClient {
         Map<String, Object> inputData = new HashMap<>();
         inputData.put("mode", mode);
         inputData.put("meteo", "sun");
+        inputData.put("school-date", "");
         payload.put("data", inputData);
         mapper = new ObjectMapper();
         try {
