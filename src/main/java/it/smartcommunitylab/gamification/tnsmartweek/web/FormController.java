@@ -46,8 +46,8 @@ public class FormController {
     @RequestMapping("/falacosagiusta")
     public String give(Map<String, Object> model) {
         model.put("trip", new ModeTrip());
-        model.put("modeWalk", "zeroImpact_solo");
-        model.put("modeBike", "zeroImpact_wAdult");
+        model.put("modeWalk", "zeroImpact_wAdult");
+        model.put("modeBike", "zeroImpact_solo");
         model.put("modeBus", "bus");
         model.put("modeTrain", "pandr");
         return "falacosagiusta";
